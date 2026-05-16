@@ -18,7 +18,9 @@ const ensure = async () => {
     await payload.update({
       collection: 'users',
       id: docs[0].id,
-      data: { password },
+      data: { 
+        password 
+      } as any,
     })
     console.log('✅ Senha atualizada com sucesso!')
   } else {
@@ -28,7 +30,7 @@ const ensure = async () => {
       data: {
         email,
         password,
-      },
+      } as any,
     })
     console.log('✅ Novo administrador criado com sucesso!')
   }
