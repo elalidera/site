@@ -15,39 +15,31 @@ export default function CategorySection({ category, posts }: CategorySectionProp
   const listPosts = posts.slice(1, 4)
 
   return (
-    <section className="py-16">
-      <div className="flex items-center justify-between mb-10 pb-4 border-b-2 border-purple-900">
-        <h2 className="text-2xl font-display font-bold text-purple-900">
-          {category.title}
-        </h2>
-        <Link 
-          href={`/${category.slug}`}
-          className="text-xs font-bold uppercase tracking-widest text-accent-700 hover:text-purple-700 transition-colors"
-        >
+    <section className="section">
+      <div className="section-heading">
+        <h2>{category.title}</h2>
+        <Link href={`/${category.slug}`}>
           Ver todos →
         </Link>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
-        <div className="lg:col-span-7">
+      <div className="grid grid-sidebar" style={{ gridTemplateColumns: 'minmax(0, 1.4fr) minmax(0, 1fr)' }}>
+        <div>
           <PostCard post={mainPost} />
         </div>
         
-        <div className="lg:col-span-5">
-          <div className="flex flex-col h-full">
-            <div className="space-y-4">
-              {listPosts.map((post) => (
-                <PostListItem key={post.id} post={post} />
-              ))}
-            </div>
-            
-            {/* Optional Sidebar Ad or CTA in the future */}
-            <div className="mt-auto pt-8">
-              <div className="bg-offwhite-200 p-6 border border-offwhite-300 text-center">
-                <p className="text-[10px] font-bold uppercase tracking-widest text-neutral-400 mb-2">Publicidade</p>
-                <div className="h-40 bg-neutral-100 flex items-center justify-center border border-dashed border-neutral-300">
-                  <span className="text-neutral-400 text-xs italic">Espaço reservado</span>
-                </div>
+        <div className="flex flex-col">
+          <div className="flex flex-col gap-md">
+            {listPosts.map((post) => (
+              <PostListItem key={post.id} post={post} />
+            ))}
+          </div>
+          
+          <div className="mt-xl pt-lg">
+            <div className="ad-slot" style={{ backgroundColor: 'var(--color-bg-secondary)', border: '1px solid var(--color-border-light)' }}>
+              <p className="text-xs text-muted mb-sm">Publicidade</p>
+              <div style={{ height: '160px', backgroundColor: 'var(--color-bg)', border: '1px dashed var(--color-border)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <span className="text-muted text-xs italic">Espaço reservado</span>
               </div>
             </div>
           </div>

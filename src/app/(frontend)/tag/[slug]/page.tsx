@@ -65,26 +65,24 @@ export default async function TagPage({ params, searchParams }: PageProps) {
   })
 
   return (
-    <div className="container mx-auto px-4 py-16">
-      <header className="mb-16 border-b border-offwhite-300 pb-12">
-        <span className="text-xs font-bold uppercase tracking-widest text-accent-700 mb-4 block">Assunto</span>
-        <h1 className="font-display text-4xl md:text-5xl text-purple-900">
-          #{tag.title}
-        </h1>
+    <div className="container" style={{ padding: 'var(--space-3xl) var(--space-lg)' }}>
+      <header className="category-header">
+        <span className="text-xs" style={{ fontWeight: 600, color: 'var(--color-accent-700)', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: 'var(--space-sm)', display: 'block' }}>Assunto</span>
+        <h1>#{tag.title}</h1>
       </header>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div className="grid grid-3">
         {posts.map((post) => (
           <PostCard key={post.id} post={post} />
         ))}
       </div>
 
       {(hasPrevPage || hasNextPage) && (
-        <div className="mt-16 pt-8 border-t border-offwhite-300 flex justify-center space-x-4">
+        <div className="pagination">
           {hasPrevPage && (
             <Link 
               href={`/tag/${slug}?page=${currentPage - 1}`}
-              className="px-6 py-2 bg-white border border-offwhite-300 text-sm font-bold uppercase tracking-widest text-neutral-600 hover:text-accent-700"
+              className="btn btn-outline"
             >
               ← Anterior
             </Link>
@@ -92,7 +90,7 @@ export default async function TagPage({ params, searchParams }: PageProps) {
           {hasNextPage && (
             <Link 
               href={`/tag/${slug}?page=${currentPage + 1}`}
-              className="px-6 py-2 bg-purple-900 text-white text-sm font-bold uppercase tracking-widest hover:bg-purple-800"
+              className="btn btn-primary"
             >
               Próxima →
             </Link>

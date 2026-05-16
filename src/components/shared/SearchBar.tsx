@@ -49,30 +49,31 @@ export default function SearchBar() {
   }
 
   return (
-    <div className="relative">
+    <div className="search-bar" style={{ position: 'relative' }}>
       <button 
         onClick={() => setIsOpen(!isOpen)}
-        className="p-2 text-neutral-600 hover:text-purple-900 transition-colors"
+        style={{ background: 'none', border: 'none', padding: 'var(--space-sm)', cursor: 'pointer', color: 'var(--color-text-secondary)' }}
       >
         <Search size={22} />
       </button>
 
       {isOpen && (
-        <div className="absolute right-0 top-full mt-2 w-72 md:w-96 bg-white border border-offwhite-300 shadow-xl rounded-sm p-4 z-[100]">
-          <form onSubmit={handleSubmit} className="relative">
+        <div style={{ position: 'absolute', right: 0, top: '100%', marginTop: 'var(--space-sm)', width: '320px', backgroundColor: 'white', border: '1px solid var(--color-border)', boxShadow: '0 4px 12px rgba(0,0,0,0.1)', borderRadius: 'var(--border-radius)', padding: 'var(--space-md)', zIndex: 100 }}>
+          <form onSubmit={handleSubmit} style={{ position: 'relative' }}>
             <input
               ref={inputRef}
               type="text"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              placeholder="O que você está procurando?"
-              className="w-full border-b border-neutral-200 py-2 pr-10 focus:outline-none focus:border-accent-700 text-sm"
+              placeholder="Pesquisar..."
+              className="search-input"
+              style={{ width: '100%', paddingLeft: 'var(--space-md)' }}
             />
             {isLoading ? (
-              <Loader2 className="absolute right-2 top-2 animate-spin text-neutral-400" size={18} />
+              <Loader2 style={{ position: 'absolute', right: '10px', top: '50%', transform: 'translateY(-50%)', animation: 'spin 1s linear infinite' }} size={18} />
             ) : (
               <X 
-                className="absolute right-2 top-2 cursor-pointer text-neutral-400" 
+                style={{ position: 'absolute', right: '10px', top: '50%', transform: 'translateY(-50%)', cursor: 'pointer', color: 'var(--color-text-muted)' }} 
                 size={18} 
                 onClick={() => setQuery('')}
               />
@@ -80,18 +81,18 @@ export default function SearchBar() {
           </form>
 
           {results.length > 0 && (
-            <div className="mt-4 space-y-3">
+            <div style={{ marginTop: 'var(--space-md)', display: 'flex', flexDirection: 'column', gap: 'var(--space-sm)' }}>
               {results.slice(0, 5).map((result: any) => (
                 <Link
                   key={result.id}
                   href={`/${result.category?.slug}/${result.slug}`}
                   onClick={() => setIsOpen(false)}
-                  className="block group"
+                  style={{ display: 'block', textDecoration: 'none' }}
                 >
-                  <p className="text-sm font-semibold text-neutral-900 group-hover:text-accent-700 line-clamp-1 transition-colors">
+                  <p style={{ fontSize: '0.875rem', fontWeight: 600, color: 'var(--color-text)', marginBottom: '2px' }}>
                     {result.title}
                   </p>
-                  <p className="text-xs text-neutral-400 uppercase tracking-tight">
+                  <p className="text-xs text-muted uppercase" style={{ margin: 0 }}>
                     {result.category?.title}
                   </p>
                 </Link>
@@ -99,7 +100,7 @@ export default function SearchBar() {
               <Link
                 href={`/busca?q=${encodeURIComponent(query)}`}
                 onClick={() => setIsOpen(false)}
-                className="block text-center text-xs font-bold text-accent-700 hover:underline pt-2 border-t border-offwhite-200"
+                style={{ display: 'block', textAlign: 'center', fontSize: '0.75rem', fontWeight: 700, color: 'var(--color-accent-700)', paddingTop: 'var(--space-sm)', borderTop: '1px solid var(--color-border-light)' }}
               >
                 Ver todos os resultados
               </Link>
@@ -107,6 +108,12 @@ export default function SearchBar() {
           )}
         </div>
       )}
+      <style jsx>{`
+        @keyframes spin {
+          from { transform: translateY(-50%) rotate(0deg); }
+          to { transform: translateY(-50%) rotate(360deg); }
+        }
+      `}</style>
     </div>
   )
 }

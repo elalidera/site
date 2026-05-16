@@ -1,4 +1,3 @@
-// src/components/shared/NewsletterForm.tsx
 'use client'
  
 import { useState, FormEvent } from 'react'
@@ -50,26 +49,25 @@ export function NewsletterForm({ inverted = false }: NewsletterFormProps) {
  
   if (status === 'success') {
     return (
-      <div className={`p-6 md:p-8 ${inverted ? 'bg-purple-800' : 'bg-offwhite-200 border-l-4 border-accent-700'}`}>
-        <p className={`font-display text-xl ${inverted ? 'text-white' : 'text-purple-900'}`}>Bem-vinda!</p>
-        <p className={`${inverted ? 'text-purple-100' : 'text-neutral-600'} mt-1`}>{message}</p>
+      <div className="newsletter" style={inverted ? { backgroundColor: 'var(--color-purple-800)', borderLeft: 'none' } : {}}>
+        <p className="newsletter-title" style={inverted ? { color: 'white' } : {}}>Bem-vinda!</p>
+        <p className="newsletter-subtitle" style={inverted ? { color: 'var(--color-purple-100)' } : {}}>{message}</p>
       </div>
     )
   }
  
   return (
-    <div className={`p-6 md:p-8 ${inverted ? 'bg-purple-800 border-none rounded-none' : 'bg-offwhite-200 border-l-4 border-accent-700'}`}>
-      <div className={`flex flex-col md:flex-row md:items-center gap-4 md:gap-8 ${inverted ? 'md:gap-12' : ''}`}>
-        <div className="flex-1">
-          <h2 className={`font-display text-xl md:text-2xl ${inverted ? 'text-white' : 'text-purple-900'}`}>
+    <div className="newsletter" style={inverted ? { backgroundColor: 'var(--color-purple-800)', borderLeft: 'none' } : {}}>
+      <div className="newsletter-inner">
+        <div className="newsletter-text">
+          <h2 className="newsletter-title" style={inverted ? { color: 'white' } : {}}>
             Receba o melhor do Ela Lidera
           </h2>
-          <p className={`${inverted ? 'text-purple-100' : 'text-neutral-600'} mt-1 text-sm`}>
+          <p className="newsletter-subtitle" style={inverted ? { color: 'var(--color-purple-100)' } : {}}>
             Conteúdo direto, sem enrolação. Toda semana no seu e-mail.
           </p>
         </div>
-        <form onSubmit={handleSubmit} className="flex gap-2 flex-1 min-w-0">
-          {/* Honeypot field - hidden from users */}
+        <form onSubmit={handleSubmit} className="newsletter-form">
           <div className="hidden" aria-hidden="true">
             <input
               type="text"
@@ -87,28 +85,22 @@ export function NewsletterForm({ inverted = false }: NewsletterFormProps) {
             onChange={(e) => setEmail(e.target.value)}
             placeholder="Seu melhor e-mail"
             aria-label="E-mail para newsletter"
-            className={`flex-1 min-w-0 px-4 py-2.5 border text-sm focus:outline-none transition-colors ${
-              inverted 
-                ? 'bg-purple-900 border-purple-700 text-white placeholder-purple-300 focus:border-accent-400' 
-                : 'bg-white border-neutral-300 text-neutral-900 focus:border-purple-700'
-            }`}
+            className="newsletter-input"
+            style={inverted ? { backgroundColor: 'var(--color-purple-900)', borderColor: 'var(--color-purple-700)', color: 'white' } : {}}
             disabled={status === 'loading'}
           />
           <button
             type="submit"
             disabled={status === 'loading'}
-            className={`px-6 py-2.5 text-sm font-semibold transition-colors disabled:opacity-60 whitespace-nowrap ${
-              inverted 
-                ? 'bg-accent-500 text-white hover:bg-accent-600' 
-                : 'bg-purple-700 text-white hover:bg-purple-800'
-            }`}
+            className="btn btn-primary"
+            style={inverted ? { backgroundColor: 'var(--color-accent-500)' } : {}}
           >
             {status === 'loading' ? 'Enviando...' : 'Assinar'}
           </button>
         </form>
       </div>
       {status === 'error' && (
-        <p className={`${inverted ? 'text-accent-200' : 'text-red-600'} text-sm mt-2`}>{message}</p>
+        <p className="text-sm mt-sm" style={{ color: inverted ? 'var(--color-accent-200)' : 'var(--color-accent-700)' }}>{message}</p>
       )}
     </div>
   )

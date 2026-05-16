@@ -79,22 +79,17 @@ export default async function CategoryPage({ params, searchParams }: PageProps) 
   })
 
   return (
-    <div className="container mx-auto px-4 py-16">
-      <header className="mb-16 max-w-4xl">
-        <h1 className="font-display text-4xl md:text-5xl lg:text-6xl text-purple-900 mb-6">
-          {category.title}
-        </h1>
+    <div className="container" style={{ padding: 'var(--space-3xl) var(--space-lg)' }}>
+      <header className="category-header">
+        <h1>{category.title}</h1>
         {category.description && (
-          <p className="text-neutral-600 text-lg md:text-xl font-body leading-relaxed">
-            {category.description}
-          </p>
+          <p>{category.description}</p>
         )}
-        <div className="h-1 w-20 bg-accent-700 mt-8" />
       </header>
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
-        <div className="lg:col-span-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <div className="grid grid-sidebar">
+        <div className="flex flex-col gap-xl">
+          <div className="grid grid-2">
             {posts.map((post) => (
               <PostCard key={post.id} post={post} />
             ))}
@@ -102,11 +97,11 @@ export default async function CategoryPage({ params, searchParams }: PageProps) 
 
           {/* Pagination */}
           {(hasPrevPage || hasNextPage) && (
-            <div className="mt-16 pt-8 border-t border-offwhite-300 flex justify-center space-x-4">
+            <div className="pagination">
               {hasPrevPage && (
                 <Link 
                   href={`/${categorySlug}?page=${currentPage - 1}`}
-                  className="px-6 py-2 bg-white border border-offwhite-300 text-sm font-bold uppercase tracking-widest text-neutral-600 hover:text-accent-700"
+                  className="btn btn-outline"
                 >
                   ← Anterior
                 </Link>
@@ -114,7 +109,7 @@ export default async function CategoryPage({ params, searchParams }: PageProps) 
               {hasNextPage && (
                 <Link 
                   href={`/${categorySlug}?page=${currentPage + 1}`}
-                  className="px-6 py-2 bg-purple-900 text-white text-sm font-bold uppercase tracking-widest hover:bg-purple-800"
+                  className="btn btn-primary"
                 >
                   Próxima →
                 </Link>
@@ -123,10 +118,10 @@ export default async function CategoryPage({ params, searchParams }: PageProps) 
           )}
         </div>
 
-        <aside className="lg:col-span-4 space-y-12">
+        <aside className="flex flex-col gap-xl">
           <MostRead posts={mostRead} />
-          <AdSlot slot="sidebar-category" className="h-[600px] bg-neutral-50 flex items-center justify-center border border-offwhite-300">
-            <span className="text-neutral-300 text-xs italic">Publicidade Editorial</span>
+          <AdSlot slot="sidebar-category" className="flex items-center justify-center" style={{ height: '600px', backgroundColor: 'var(--color-bg-secondary)', border: '1px solid var(--color-border-light)' }}>
+            <span className="text-muted text-xs italic">Publicidade Editorial</span>
           </AdSlot>
         </aside>
       </div>

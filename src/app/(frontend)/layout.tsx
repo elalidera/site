@@ -7,22 +7,18 @@ import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
 import { getPayload } from 'payload'
 import config from '@/../payload.config'
-import { GoogleAnalytics } from '@/components/tracking/GoogleAnalytics'
-import { GoogleTagManager, GTMNoScript } from '@/components/tracking/GoogleTagManager'
-import { MetaPixel } from '@/components/tracking/MetaPixel'
-import { AdSenseScript } from '@/components/tracking/AdSenseScript'
 
 const playfair = Playfair_Display({
   subsets: ['latin'],
   weight: ['400', '700'],
-  variable: '--font-display',
+  variable: '--font-playfair',
   display: 'swap',
 })
 
 const sourceSans = Source_Sans_3({
   subsets: ['latin'],
   weight: ['400', '600'],
-  variable: '--font-body',
+  variable: '--font-source-sans',
   display: 'swap',
 })
 
@@ -30,17 +26,13 @@ export async function generateMetadata(): Promise<Metadata> {
   try {
     const payload = await getPayload({ config })
     const settings = await payload.findGlobal({ slug: 'site-settings' })
-
     return {
       title: {
         default: settings?.siteName || 'Ela Lidera',
         template: `%s | ${settings?.siteName || 'Ela Lidera'}`,
       },
-      description: settings?.description || 'O portal editorial definitivo para mulheres líderes 40+ que buscam impacto, elegância e crescimento.',
+      description: settings?.description || 'Liderança, postura e crescimento de um jeito forte, elegante e verdadeiro.',
       metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://elalidera.vercel.app'),
-      verification: {
-        google: settings?.tracking?.googleSearchConsole || '',
-      },
     }
   } catch {
     return {
@@ -55,29 +47,11 @@ export default async function FrontendLayout({
 }: {
   children: React.ReactNode
 }) {
-  let tracking: any = null
-
-  try {
-    const payload = await getPayload({ config })
-    const settings = await payload.findGlobal({ slug: 'site-settings' })
-    tracking = settings?.tracking
-  } catch (e) {
-    console.error('Failed to load settings:', e)
-  }
-
   return (
-    <html lang="pt-BR">
-      <body className={`${playfair.variable} ${sourceSans.variable} font-body antialiased bg-[#FFFDF7] text-[#1A1A1A]`}>
-        {tracking?.gaId && <GoogleAnalytics gaId={tracking.gaId} />}
-        {tracking?.gtmId && <GoogleTagManager gtmId={tracking.gtmId} />}
-        {tracking?.pixelId && <MetaPixel pixelId={tracking.pixelId} />}
-        {tracking?.adsenseId && <AdSenseScript publisherId={tracking.adsenseId} />}
-        {tracking?.gtmId && <GTMNoScript gtmId={tracking.gtmId} />}
-
+    <html lang="pt-BR" className={`${playfair.variable} ${sourceSans.variable}`}>
+      <body>
         <Header />
-        <main className="min-h-screen">
-          {children}
-        </main>
+        <main>{children}</main>
         <Footer />
       </body>
     </html>

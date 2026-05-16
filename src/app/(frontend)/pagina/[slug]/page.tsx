@@ -47,16 +47,18 @@ export default async function StaticPage({ params }: PageProps) {
   if (!page) notFound()
 
   return (
-    <article className="min-h-screen bg-offwhite py-20">
-      <div className="container mx-auto px-4 max-w-3xl">
-        <header className="mb-16 text-center">
-          <h1 className="font-display text-4xl md:text-6xl text-purple-900 leading-tight">
+    <article style={{ minHeight: '100vh', backgroundColor: 'var(--color-bg)', padding: 'var(--space-3xl) 0' }}>
+      <div className="container-narrow">
+        <header style={{ marginBottom: 'var(--space-3xl)', textAlign: 'center' }}>
+          <h1 className="article-title" style={{ fontSize: '3rem' }}>
             {page.title}
           </h1>
-          <div className="h-1 w-20 bg-accent-700 mx-auto mt-8" />
+          <div style={{ height: '4px', width: '80px', backgroundColor: 'var(--color-accent-700)', margin: 'var(--space-xl) auto 0' }} />
         </header>
 
-        <ArticleContent content={page.content} />
+        <div className="article-content">
+          <ArticleContent content={page.content} />
+        </div>
       </div>
     </article>
   )

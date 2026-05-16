@@ -16,36 +16,36 @@ export default function PostCard({ post }: PostCardProps) {
   })
 
   return (
-    <article className="group flex flex-col h-full bg-white border border-offwhite-300 transition-all hover:border-accent-200">
-      <Link href={`/${post.category?.slug}/${post.slug}`} className="relative aspect-[3/2] overflow-hidden">
+    <article className="post-card">
+      <Link href={`/${post.category?.slug}/${post.slug}`} style={{ position: 'relative', display: 'block', aspectRatio: '3/2', overflow: 'hidden' }}>
         <Image
           src={post.featuredImage?.url || '/placeholder.jpg'}
           alt={post.featuredImage?.alt || post.title}
           fill
-          className="object-cover transition-transform duration-500 group-hover:scale-105"
+          className="post-card-image"
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
         />
-        <div className="absolute top-4 left-4">
-          <span className="px-2 py-1 bg-purple-900/90 text-white text-[9px] font-bold uppercase tracking-widest backdrop-blur-sm">
+        <div style={{ position: 'absolute', top: '12px', left: '12px' }}>
+          <span className="badge">
             {post.category?.title}
           </span>
         </div>
       </Link>
       
-      <div className="p-6 flex flex-col flex-grow">
-        <Link href={`/${post.category?.slug}/${post.slug}`}>
-          <h3 className="font-display text-xl text-purple-900 leading-snug group-hover:text-accent-700 transition-colors line-clamp-2 mb-3">
+      <div className="post-card-content">
+        <h3 className="post-card-title">
+          <Link href={`/${post.category?.slug}/${post.slug}`}>
             {post.title}
-          </h3>
-        </Link>
+          </Link>
+        </h3>
         
-        <p className="text-neutral-600 text-sm line-clamp-2 mb-6 font-body">
+        <p className="text-sm text-muted" style={{ display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
           {post.excerpt}
         </p>
         
-        <div className="mt-auto pt-4 border-t border-offwhite-200 flex items-center justify-between text-[10px] text-neutral-400 font-bold uppercase tracking-widest">
+        <div className="post-card-meta mt-md pt-sm" style={{ borderTop: '1px solid var(--color-border-light)', display: 'flex', justifyContent: 'between' }}>
           <span>{post.author?.name || 'Redação'}</span>
-          <span>{publishedDate}</span>
+          <span style={{ marginLeft: 'auto' }}>{publishedDate}</span>
         </div>
       </div>
     </article>

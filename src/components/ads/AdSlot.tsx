@@ -8,10 +8,11 @@ interface AdSlotProps {
   format?: 'auto' | 'horizontal' | 'vertical' | 'rectangle'
   responsive?: boolean
   className?: string
+  style?: React.CSSProperties
   children?: React.ReactNode
 }
  
-export function AdSlot({ slot, format = 'auto', responsive = true, className, children }: AdSlotProps) {
+export function AdSlot({ slot, format = 'auto', responsive = true, className, style, children }: AdSlotProps) {
   const adRef = useRef<HTMLDivElement>(null)
   const isLoaded = useRef(false)
  
@@ -32,7 +33,7 @@ export function AdSlot({ slot, format = 'auto', responsive = true, className, ch
   if (!slot) return null
  
   return (
-    <div className={className} ref={adRef}>
+    <div className={className} style={style} ref={adRef}>
       <ins
         className="adsbygoogle"
         style={{ display: 'block' }}

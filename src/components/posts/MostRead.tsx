@@ -9,8 +9,8 @@ export default function MostRead({ posts }: MostReadProps) {
   if (!posts || posts.length === 0) return null
 
   return (
-    <div className="bg-white border border-offwhite-300 p-8">
-      <h3 className="text-xl font-display font-bold text-purple-900 mb-8 border-b border-offwhite-300 pb-4">
+    <div style={{ backgroundColor: 'var(--color-bg)', border: '1px solid var(--color-border-light)', padding: 'var(--space-xl)' }}>
+      <h3 style={{ fontSize: '1.25rem', fontFamily: 'var(--font-display)', color: 'var(--color-purple-900)', marginBottom: 'var(--space-xl)', borderBottom: '1px solid var(--color-border-light)', paddingBottom: 'var(--space-md)' }}>
         Mais lidos
       </h3>
       <div className="flex flex-col">

@@ -66,40 +66,40 @@ export default async function HomePage() {
   )
 
   return (
-    <div className="bg-offwhite min-h-screen">
+    <div className="bg-bg">
       {/* SEÇÃO HERO - O impacto inicial */}
-      <section className="border-b border-offwhite-300">
+      <section style={{ borderBottom: '1px solid var(--color-border-light)' }}>
         {heroPost ? (
           <PostHero post={heroPost} />
         ) : (
-          <div className="py-32 text-center">
-            <h1 className="text-4xl font-display text-purple-900">Bem-vinda ao Ela Lidera</h1>
-            <p className="text-neutral-600 mt-4">Conteúdo premium para mulheres que lideram o seu tempo.</p>
+          <div className="text-center" style={{ padding: 'var(--space-4xl) 0' }}>
+            <h1 style={{ fontSize: '2.5rem' }}>Bem-vinda ao Ela Lidera</h1>
+            <p className="text-muted mt-md">Conteúdo premium para mulheres que lideram o seu tempo.</p>
           </div>
         )}
       </section>
 
       {/* SEÇÃO DE ÚLTIMAS NOTÍCIAS */}
-      <div className="container mx-auto px-4 py-16">
-        <div className="flex flex-col md:flex-row items-baseline justify-between mb-12 border-b border-purple-100 pb-4">
-          <h2 className="text-3xl font-display text-purple-900">As mais recentes</h2>
-          <span className="text-accent-600 font-medium text-sm uppercase tracking-widest">Update diário</span>
+      <div className="container" style={{ padding: 'var(--space-3xl) var(--space-lg)' }}>
+        <div className="section-heading">
+          <h2>As mais recentes</h2>
+          <span className="text-xs" style={{ color: 'var(--color-accent-700)', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '1px' }}>Update diário</span>
         </div>
         
         <PostGrid posts={latestPosts} />
       </div>
 
       {/* SEÇÃO NEWSLETTER - Design Editorial High-Contrast */}
-      <section className="bg-purple-900 py-20 my-16 text-offwhite">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto text-center space-y-8">
-            <h3 className="text-4xl md:text-5xl font-display leading-tight">
+      <section style={{ backgroundColor: 'var(--color-purple-900)', padding: 'var(--space-3xl) 0', color: 'white', margin: 'var(--space-3xl) 0' }}>
+        <div className="container">
+          <div style={{ maxWidth: '800px', margin: '0 auto', textAlign: 'center' }}>
+            <h3 style={{ fontSize: '2.5rem', lineHeight: '1.2', color: 'white', marginBottom: 'var(--space-lg)' }}>
               Liderança, postura e crescimento <br/> de um jeito forte e elegante.
             </h3>
-            <p className="text-purple-100 text-lg max-w-2xl mx-auto">
+            <p style={{ color: 'var(--color-purple-100)', fontSize: '1.125rem', marginBottom: 'var(--space-xl)' }}>
               Inscreva-se na nossa curadoria semanal e receba insights exclusivos para o seu desenvolvimento.
             </p>
-            <div className="max-w-md mx-auto pt-4">
+            <div style={{ maxWidth: '600px', margin: '0 auto' }}>
               <NewsletterForm inverted />
             </div>
           </div>
@@ -107,10 +107,10 @@ export default async function HomePage() {
       </section>
 
       {/* FEED PRINCIPAL + SIDEBAR */}
-      <div className="container mx-auto px-4 py-16">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
+      <div className="container" style={{ padding: 'var(--space-3xl) var(--space-lg)' }}>
+        <div className="grid grid-sidebar" style={{ gap: 'var(--space-2xl)' }}>
           {/* Coluna Principal */}
-          <div className="lg:col-span-8 space-y-24">
+          <div className="flex flex-col gap-4xl">
             {categorySections.map((section) => (
               <CategorySection 
                 key={section.category.id} 
@@ -121,24 +121,24 @@ export default async function HomePage() {
           </div>
           
           {/* Sidebar */}
-          <aside className="lg:col-span-4 space-y-16">
-            <div className="sticky top-32 space-y-16">
+          <aside className="flex flex-col gap-2xl">
+            <div style={{ position: 'sticky', top: '100px' }}>
               <MostRead posts={mostReadPosts} />
               
-              <div className="p-8 bg-offwhite-200 border border-offwhite-300 space-y-4">
-                <span className="text-[10px] uppercase tracking-widest text-neutral-400 block text-center">Publicidade</span>
-                <AdSlot slot="sidebar-home" className="h-[250px] flex items-center justify-center grayscale" />
+              <div className="mt-xl" style={{ padding: 'var(--space-xl)', backgroundColor: 'var(--color-bg-secondary)', border: '1px solid var(--color-border-light)' }}>
+                <span className="text-xs text-muted block text-center uppercase" style={{ letterSpacing: '1px', marginBottom: 'var(--space-md)' }}>Publicidade</span>
+                <AdSlot slot="sidebar-home" className="flex items-center justify-center" style={{ height: '250px' }} />
               </div>
 
               {/* Box de Seguir (Placeholder visual) */}
-              <div className="border-t-4 border-purple-900 pt-8">
-                <h4 className="font-display text-xl text-purple-900 mb-4">Siga o Ela Lidera</h4>
-                <p className="text-sm text-neutral-600 leading-relaxed mb-6">
+              <div style={{ borderTop: '4px solid var(--color-purple-900)', marginTop: 'var(--space-xl)', paddingTop: 'var(--space-lg)' }}>
+                <h4 style={{ fontSize: '1.25rem', color: 'var(--color-purple-900)', marginBottom: 'var(--space-md)' }}>Siga o Ela Lidera</h4>
+                <p className="text-sm text-muted" style={{ marginBottom: 'var(--space-lg)' }}>
                   Junte-se à nossa comunidade de líderes nas redes sociais e acompanhe os bastidores.
                 </p>
-                <div className="flex gap-4">
-                  <div className="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center text-purple-900 cursor-pointer hover:bg-purple-900 hover:text-white transition-colors">IN</div>
-                  <div className="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center text-purple-900 cursor-pointer hover:bg-purple-900 hover:text-white transition-colors">IG</div>
+                <div className="flex gap-md">
+                  <div style={{ width: '40px', height: '40px', backgroundColor: 'var(--color-purple-100)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--color-purple-900)', cursor: 'pointer' }}>IN</div>
+                  <div style={{ width: '40px', height: '40px', backgroundColor: 'var(--color-purple-100)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--color-purple-900)', cursor: 'pointer' }}>IG</div>
                 </div>
               </div>
             </div>
@@ -147,9 +147,9 @@ export default async function HomePage() {
       </div>
 
       {/* BANNER FINAL */}
-      <div className="container mx-auto px-4 pb-20">
-        <AdSlot slot="bottom-home" className="w-full h-32 bg-offwhite-300 flex items-center justify-center">
-          <span className="text-neutral-400 text-xs italic">Publicidade</span>
+      <div className="container" style={{ paddingBottom: 'var(--space-4xl)' }}>
+        <AdSlot slot="bottom-home" className="flex items-center justify-center" style={{ width: '100%', height: '128px', backgroundColor: 'var(--color-bg-tertiary)' }}>
+          <span className="text-muted text-xs italic">Publicidade</span>
         </AdSlot>
       </div>
     </div>

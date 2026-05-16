@@ -14,10 +14,10 @@ export default function MobileMenu({ categories, socialLinks }: MobileMenuProps)
   const [isOpen, setIsOpen] = useState(false)
 
   return (
-    <div className="lg:hidden">
+    <>
       <button 
         onClick={() => setIsOpen(true)}
-        className="p-2 -ml-2 text-purple-900"
+        className="nav-mobile-toggle"
         aria-label="Open Menu"
       >
         <Menu size={28} />
@@ -32,7 +32,14 @@ export default function MobileMenu({ categories, socialLinks }: MobileMenuProps)
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setIsOpen(false)}
-              className="fixed inset-0 z-[60] bg-purple-900/40 backdrop-blur-sm"
+              className="mobile-menu-backdrop"
+              style={{
+                position: 'fixed',
+                inset: 0,
+                zIndex: 200,
+                backgroundColor: 'rgba(45, 27, 78, 0.4)',
+                backdropFilter: 'blur(4px)'
+              }}
             />
 
             {/* Drawer */}
@@ -41,30 +48,29 @@ export default function MobileMenu({ categories, socialLinks }: MobileMenuProps)
               animate={{ x: 0 }}
               exit={{ x: '-100%' }}
               transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-              className="fixed inset-y-0 left-0 z-[70] w-[85%] max-w-sm bg-offwhite p-6 shadow-2xl flex flex-col"
+              className="mobile-menu"
             >
-              <div className="flex items-center justify-between mb-12">
-                <span className="text-2xl font-display font-bold text-purple-900">Ela Lidera</span>
-                <button onClick={() => setIsOpen(false)} className="p-2 text-neutral-600">
-                  <X size={28} />
-                </button>
-              </div>
+              <button onClick={() => setIsOpen(false)} className="mobile-menu-close">
+                <X size={28} />
+              </button>
 
-              <nav className="flex flex-col space-y-6 flex-grow">
+              <div className="logo mb-lg">Ela Lidera</div>
+
+              <nav className="mobile-menu-nav">
                 {categories.map((category) => (
-                  <Link
-                    key={category.id}
-                    href={`/${category.slug}`}
-                    onClick={() => setIsOpen(false)}
-                    className="text-lg font-semibold text-neutral-900 hover:text-accent-700 transition-colors"
-                  >
-                    {category.title}
-                  </Link>
+                  <li key={category.id}>
+                    <Link
+                      href={`/${category.slug}`}
+                      onClick={() => setIsOpen(false)}
+                    >
+                      {category.title}
+                    </Link>
+                  </li>
                 ))}
               </nav>
 
-              <div className="border-t border-offwhite-300 pt-8 mt-auto">
-                <div className="flex space-x-6 justify-center text-purple-900">
+              <div className="mt-auto pt-lg border-top">
+                <div className="footer-social flex items-center justify-center gap-md">
                   {socialLinks?.instagram && (
                     <a href={socialLinks.instagram} target="_blank" rel="noopener noreferrer">
                       <Instagram size={24} />
@@ -86,14 +92,11 @@ export default function MobileMenu({ categories, socialLinks }: MobileMenuProps)
                     </a>
                   )}
                 </div>
-                <p className="text-center text-sm text-neutral-400 mt-6 font-medium tracking-tight">
-                  © 2026 Ela Lidera. Todos os direitos reservados.
-                </p>
               </div>
             </motion.div>
           </>
         )}
       </AnimatePresence>
-    </div>
+    </>
   )
 }

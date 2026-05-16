@@ -19,38 +19,37 @@ export default function PostHero({ post }: PostHeroProps) {
   const author = post.author
 
   return (
-    <section className="relative group overflow-hidden">
-      <Link href={`/${category?.slug}/${post.slug}`} className="grid grid-cols-1 lg:grid-cols-12 gap-0 bg-white border border-offwhite-300">
-        <div className="lg:col-span-8 relative aspect-[16/9] lg:aspect-auto min-h-[300px] md:min-h-[450px]">
+    <section className="post-hero">
+      <Link href={`/${category?.slug}/${post.slug}`} className="grid grid-sidebar" style={{ backgroundColor: 'var(--color-bg)', border: '1px solid var(--color-border-light)' }}>
+        <div style={{ position: 'relative', minHeight: '400px' }}>
           <Image
             src={post.featuredImage?.url || '/placeholder.jpg'}
             alt={post.featuredImage?.alt || post.title}
             fill
             priority
-            className="object-cover transition-transform duration-700 group-hover:scale-105"
+            className="post-hero-image"
+            style={{ marginBottom: 0 }} // Override default margin if needed
             sizes="(max-width: 1024px) 100vw, 66vw"
           />
         </div>
         
-        <div className="lg:col-span-4 p-8 md:p-12 flex flex-col justify-center space-y-6">
-          <span className="inline-block px-3 py-1 bg-purple-700 text-white text-[10px] font-bold uppercase tracking-widest self-start">
+        <div style={{ padding: 'var(--space-xl)', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+          <span className="badge">
             {category?.title}
           </span>
           
-          <h1 className="font-display text-3xl md:text-4xl lg:text-5xl text-purple-900 leading-tight">
+          <h1 className="post-hero-title">
             {post.title}
           </h1>
           
-          <p className="text-neutral-600 text-base md:text-lg line-clamp-3 font-body">
+          <p className="post-hero-excerpt">
             {post.excerpt}
           </p>
           
-          <div className="pt-4 border-t border-offwhite-300 flex items-center text-xs text-neutral-400 font-medium uppercase tracking-widest">
+          <div className="text-xs text-muted mt-md pt-md" style={{ borderTop: '1px solid var(--color-border-light)', textTransform: 'uppercase', letterSpacing: '1px' }}>
             <span>Por {author?.name || 'Redação'}</span>
-            <span className="mx-2">·</span>
+            <span style={{ margin: '0 8px' }}>·</span>
             <span>{publishedDate}</span>
-            <span className="mx-2">·</span>
-            <span>{post.readingTime || 5} min leitura</span>
           </div>
         </div>
       </Link>
