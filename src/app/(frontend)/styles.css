@@ -1,0 +1,21 @@
+/* src/app/(frontend)/styles.css — Tailwind APENAS para o frontend */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom base styles para o frontend do Ela Lidera */
+@layer base {
+  body {
+    font-family: var(--font-body), 'Source Sans 3', sans-serif;
+    font-size: 18px;
+    line-height: 1.7;
+    color: #1A1A1A;
+    background-color: #FFFDF7;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-display), 'Playfair Display', serif;
+    color: #2D1B4E;
+    line-height: 1.2;
+  }
+}

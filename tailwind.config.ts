@@ -2,14 +2,15 @@ import type { Config } from 'tailwindcss'
 
 const config: Config = {
   content: [
-    './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
-    './src/components/**/*.{js,ts,jsx,tsx,mdx}',
-    './src/app/**/*.{js,ts,jsx,tsx,mdx}',
+    // APENAS frontend — nunca incluir (payload)
+    './src/app/(frontend)/**/*.{ts,tsx}',
+    './src/components/**/*.{ts,tsx}',
+    // NÃO inclua './src/app/(payload)/**' aqui
   ],
   theme: {
     extend: {
       colors: {
-        primary: {
+        purple: {
           50: '#F5EEFA',
           100: '#E8D8F5',
           300: '#C9A8E8',
@@ -19,10 +20,10 @@ const config: Config = {
           800: '#4A2D7A',
           900: '#2D1B4E',
         },
-        background: {
+        offwhite: {
           DEFAULT: '#FFFDF7',
-          secondary: '#F7F3EC',
-          tertiary: '#EDE8DF',
+          200: '#F7F3EC',
+          300: '#EDE8DF',
         },
         accent: {
           200: '#FAD1B0',
@@ -32,33 +33,26 @@ const config: Config = {
           700: '#C4501C',
         },
         neutral: {
-          text: '#1A1A1A',
-          secondary: '#4A4A4A',
-          muted: '#7A7A7A',
-          border: '#D4D0C8',
-        }
+          400: '#7A7A7A',
+          600: '#4A4A4A',
+          900: '#1A1A1A',
+        },
       },
       fontFamily: {
-        display: ['var(--font-playfair)', 'serif'],
-        body: ['var(--font-source-sans)', 'sans-serif'],
-      },
-      fontSize: {
-        base: '18px',
+        display: ['var(--font-display)', 'Playfair Display', 'serif'],
+        body: ['var(--font-body)', 'Source Sans 3', 'sans-serif'],
       },
       borderRadius: {
-        DEFAULT: '4px',
         sm: '2px',
+        DEFAULT: '4px',
         md: '4px',
-        lg: '4px',
-        xl: '4px',
+        lg: '4px', // Editorial: sem bordas arredondadas excessivas
       },
-      spacing: {
-        section: '64px',
-      }
     },
   },
   plugins: [
     require('@tailwindcss/typography'),
   ],
 }
+
 export default config

@@ -2,7 +2,7 @@ import { RootLayout, handleServerFunctions } from '@payloadcms/next/layouts'
 import React from 'react'
 import config from '../../../payload.config'
 import { importMap } from './admin/importMap'
-import './custom.css'
+import './custom.scss'
 
 const serverFunction = async function (args: any) {
   'use server'
