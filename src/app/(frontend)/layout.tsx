@@ -1,7 +1,8 @@
+// src/app/(frontend)/layout.tsx
 import type { Metadata } from 'next'
 import React from 'react'
 import { Playfair_Display, Source_Sans_3 } from 'next/font/google'
-import './styles.css' // Tailwind importado SOMENTE aqui
+import './styles.css'
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
 import { getPayload } from 'payload'
@@ -26,40 +27,59 @@ const sourceSans = Source_Sans_3({
 })
 
 export async function generateMetadata(): Promise<Metadata> {
-  const payload = await getPayload({ config })
-  const settings = await payload.findGlobal({ slug: 'site-settings' })
+  try {
+    const payload = await getPayload({ config })
+    const settings = await payload.findGlobal({ slug: 'site-settings' })
 
-  return {
-    title: {
-      default: settings?.siteName || 'Ela Lidera',
-      template: `%s | ${settings?.siteName || 'Ela Lidera'}`,
-    },
-    description: settings?.description || 'O portal editorial definitivo para mulheres líderes 40+ que buscam impacto, elegância e crescimento.',
-    metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://elalidera.vercel.app'),
-    verification: {
-      google: settings?.tracking?.googleSearchConsole || '',
-    },
+    return {
+      title: {
+        default: settings?.siteName || 'Ela Lidera',
+        template: `%s | ${settings?.siteName || 'Ela Lidera'}`,
+      },
+      description: settings?.description || 'O portal editorial definitivo para mulheres líderes 40+ que buscam impacto, elegância e crescimento.',
+      metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://elalidera.vercel.app'),
+      verification: {
+        google: settings?.tracking?.googleSearchConsole || '',
+      },
+    }
+  } catch {
+    return {
+      title: 'Ela Lidera',
+      description: 'Liderança, postura e crescimento de um jeito forte, elegante e verdadeiro.',
+    }
   }
 }
 
-export default async function FrontendLayout({ children }: { children: React.ReactNode }) {
-  const payload = await getPayload({ config })
-  const settings = await payload.findGlobal({ slug: 'site-settings' })
-  const tracking = settings?.tracking
+export default async function FrontendLayout({
+  children,
+}: {
+  children: React.ReactNode
+}) {
+  let tracking: any = null
+
+  try {
+    const payload = await getPayload({ config })
+    const settings = await payload.findGlobal({ slug: 'site-settings' })
+    tracking = settings?.tracking
+  } catch (e) {
+    console.error('Failed to load settings:', e)
+  }
 
   return (
-    <div className={`${playfair.variable} ${sourceSans.variable} font-body antialiased bg-[#FFFDF7] text-[#1A1A1A]`}>
-      <GoogleAnalytics gaId={tracking?.gaId} />
-      <GoogleTagManager gtmId={tracking?.gtmId} />
-      <MetaPixel pixelId={tracking?.pixelId} />
-      <AdSenseScript publisherId={tracking?.adsenseId} />
-      <GTMNoScript gtmId={tracking?.gtmId} />
-      
-      <Header />
-      <main className="min-h-screen">
-        {children}
-      </main>
-      <Footer />
-    </div>
+    <html lang="pt-BR">
+      <body className={`${playfair.variable} ${sourceSans.variable} font-body antialiased bg-[#FFFDF7] text-[#1A1A1A]`}>
+        {tracking?.gaId && <GoogleAnalytics gaId={tracking.gaId} />}
+        {tracking?.gtmId && <GoogleTagManager gtmId={tracking.gtmId} />}
+        {tracking?.pixelId && <MetaPixel pixelId={tracking.pixelId} />}
+        {tracking?.adsenseId && <AdSenseScript publisherId={tracking.adsenseId} />}
+        {tracking?.gtmId && <GTMNoScript gtmId={tracking.gtmId} />}
+
+        <Header />
+        <main className="min-h-screen">
+          {children}
+        </main>
+        <Footer />
+      </body>
+    </html>
   )
 }
